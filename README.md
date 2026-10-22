@@ -2,13 +2,39 @@
 
 **Demo admin:** inicia `python3 -m app.server` y abre el puerto local 8000. Ficha → conexiones → prueba. El panel de registros está en `/gestion`.
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="app/static/icons/envelope-dark.svg"><source media="(prefers-color-scheme: light)" srcset="app/static/icons/envelope-light.svg"><img alt="Gmail" src="app/static/icons/envelope-light.svg" width="24" height="24"></picture> **Gmail**
+## Así se verá tu oficina
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="app/static/icons/folder-dark.svg"><source media="(prefers-color-scheme: light)" srcset="app/static/icons/folder-light.svg"><img alt="Drive" src="app/static/icons/folder-light.svg" width="24" height="24"></picture> **Drive**
+Ejemplos visuales con datos ficticios. **Diseño previsto:** las conexiones, OCR y sincronización todavía no están implementados.
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="app/static/icons/chat-dots-dark.svg"><source media="(prefers-color-scheme: light)" srcset="app/static/icons/chat-dots-light.svg"><img alt="ChatGPT" src="app/static/icons/chat-dots-light.svg" width="24" height="24"></picture> **ChatGPT**
+### Tu Drive, organizado y relacionado
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="app/static/icons/whatsapp-dark.svg"><source media="(prefers-color-scheme: light)" srcset="app/static/icons/whatsapp-light.svg"><img alt="WhatsApp" src="app/static/icons/whatsapp-light.svg" width="24" height="24"></picture> **WhatsApp**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/drive-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/drive-light.svg">
+  <img alt="Tu Drive, organizado y relacionado. Cada archivo se guarda una vez; clientes, facturas y documentos se enlazan por ID." src="docs/images/drive-light.svg" width="1120">
+</picture>
+
+Cada archivo se guarda una vez; clientes, facturas y documentos se enlazan por ID.
+
+### De ChatGPT a un gasto organizado
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/chatgpt-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/chatgpt-light.svg">
+  <img alt="De ChatGPT a un gasto organizado. Adjuntar → extraer → confirmar → guardar borrador → avisar." src="docs/images/chatgpt-light.svg" width="1120">
+</picture>
+
+Adjuntar → extraer → confirmar → guardar borrador → avisar.
+
+### De una foto en WhatsApp a un registro
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/whatsapp-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/whatsapp-light.svg">
+  <img alt="De una foto en WhatsApp a un registro. Foto → OCR → revisión → documento en Drive + registro enlazado." src="docs/images/whatsapp-light.svg" width="1120">
+</picture>
+
+Foto → OCR → revisión → documento en Drive + registro enlazado.
 
 [Fragmentos del admin](docs/ADMIN_CODIGO.md) · [Prompts de acciones](prompts/sistema.md)
 
