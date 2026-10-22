@@ -9,7 +9,7 @@ Decisión: equipo de la usuaria encendido, sin alojamiento de pago, y extracció
 | Equipo | Python 3.12+, disco privado, Internet y proceso encendido | Sin alquiler de servidor; usa recursos del equipo |
 | Google | Cuenta del titular, proyecto Cloud, APIs Gmail/Drive/Calendar/Sheets y cliente OAuth de escritorio | Comprobar cuotas, almacenamiento y condiciones vigentes; no implica Workspace de pago obligatorio |
 | Permisos | Autorizar correo, calendario y archivos necesarios | El administrador no necesita la contraseña del usuario |
-| IA | Cuenta API independiente, clave de proyecto y modelo elegido | Consumo separado de Plus; precio según modelo y volumen |
+| IA | Elegir API OpenAI o Anthropic, clave de proyecto y modelo | Consumo separado de Plus; precio según modelo y volumen |
 | Límite | Propuesta inicial: 5 €/mes, editable y pendiente de aceptación | No es una estimación ni límite efectivo todavía |
 | Seguridad | Sesión del sistema protegida, tokens cifrados y copias privadas restaurables | Requisito previo a datos reales |
 
@@ -18,6 +18,10 @@ Decisión: equipo de la usuaria encendido, sin alojamiento de pago, y extracció
 Gmail se consultará cada 5 minutos mientras esté encendido el equipo, evitando un webhook público y Pub/Sub en esta primera versión. Al volver a encender, recuperará el trabajo pendiente mediante un cursor persistido. Los documentos entrarán en una cola local con deduplicación; la API propondrá campos; el titular confirmará antes de escribir en Drive/Sheets/Calendar. Un error de aviso no repetirá la escritura contable.
 
 No hace falta alojar una web pública para este flujo de Google. ChatGPT como entrada y WhatsApp requieren endpoints accesibles/autenticados y quedan fuera del mínimo. No exponer el servidor actual mediante un túnel sin implementar seguridad. Audio y fotos requieren adaptadores específicos y pruebas: seleccionar «API» no los activa.
+
+## Proveedor y orquestación
+
+OpenAI y Anthropic son alternativas, no dos suscripciones obligatorias. n8n es opcional. [Comparación y arquitectura](IA_Y_N8N.md).
 
 ## Control de consumo necesario antes de usar IA
 

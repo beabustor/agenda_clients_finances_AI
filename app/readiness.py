@@ -3,7 +3,7 @@ import json
 import os
 from pathlib import Path
 
-DEFAULT = {'ejecucion':'local','ia':'api','presupuesto_eur':5,'intervalo_gmail_min':5,'whatsapp':False,'chatgpt':False}
+DEFAULT = {'ejecucion':'local','ia':'api','proveedor_ia':'openai','presupuesto_eur':5,'intervalo_gmail_min':5,'whatsapp':False,'chatgpt':False}
 
 def initialize(db):
     db.execute('CREATE TABLE IF NOT EXISTS implantacion (id INTEGER PRIMARY KEY CHECK(id=1), datos TEXT NOT NULL)')
@@ -11,13 +11,15 @@ def initialize(db):
 def settings(db):
     initialize(db)
     row=db.execute('SELECT datos FROM implantacion WHERE id=1').fetchone()
-    return json.loads(row[0]) if row else DEFAULT.copy()
+    return DEFAULT | json.loads(row[0]) if row else DEFAULT.copy()
 
 def save(db, data):
     if not isinstance(data,dict) or set(data)!=set(DEFAULT):
         raise ValueError('Plan no válido')
     if data['ejecucion'] not in ('local','servidor') or data['ia'] not in ('manual','api','local'):
         raise ValueError('Modalidad no válida')
+    if data['proveedor_ia'] not in ('openai','anthropic'):
+        raise ValueError('Proveedor de IA no válido')
     if type(data['presupuesto_eur']) is not int or not 1 <= data['presupuesto_eur'] <= 100:
         raise ValueError('Presupuesto entre 1 y 100 euros')
     if type(data['intervalo_gmail_min']) is not int or not 1 <= data['intervalo_gmail_min'] <= 60:
@@ -40,6 +42,7 @@ def report(db):
     add('Tokens OAuth','archivo_presente_no_verificado' if token_path and Path(token_path).is_file() else 'falta','No se leen ni muestran tokens. Autorización del titular y renovación pendientes.')
     add('Gmail + Drive + Calendar + Sheets','pendiente_implementacion','Faltan conectores, consultas periódicas, permisos y prueba real de escritura/lectura.')
     if plan['ia']=='api':
+        add('Proveedor de IA','pendiente_implementacion', 'API seleccionada: '+plan['proveedor_ia']+'. Elegir una no conecta el proveedor.')
         add('LLM_API_KEY','presente_no_verificado' if os.environ.get('LLM_API_KEY') else 'falta','Cuenta API independiente de ChatGPT Plus.')
         add('Límite de consumo','pendiente_implementacion',f'Objetivo: {plan["presupuesto_eur"]} €/mes. Preferencia guardada; todavía NO bloquea gasto. No activar consumo sin control implementado.')
     elif plan['ia']=='local':

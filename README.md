@@ -8,6 +8,33 @@
 
 **Google y WhatsApp:** conexiones previstas · **Excel:** exportación prevista · **Access:** alternativa comparada, no utilizada. [Fuentes de los logotipos](docs/images/logos/README.md).
 
+![Alternativas de IA: ChatGPT/OpenAI o Claude/Anthropic. n8n como orquestador opcional](docs/images/logotipos-ia.svg)
+
+**IA: elige OpenAI o Anthropic**, no hacen falta las dos. ChatGPT/Claude son las interfaces de conversación; para procesar desde la aplicación se necesita la API del proveedor. Suscripciones de chat y consumo API se contratan por separado. Los adaptadores están pendientes.
+
+**n8n es opcional:** puede coordinar correo, archivos, calendario y avisos. No está instalado ni hay workflows activos. [Cuándo usarlo](docs/IA_Y_N8N.md).
+
+
+## Pantallas de ejemplo
+
+**Maquetas ficticias, no capturas reales.** Así se verían los datos cuando se implementen las conexiones y exportaciones. Fondo propio para verse en GitHub claro y oscuro.
+
+### Excel: gastos filtrables y documentos enlazados
+
+![Maqueta de Excel con cinta, fórmula, filtros, IDs de cliente y cita, pestañas y totales](docs/images/maqueta-excel.svg)
+
+### Drive: carpetas, libro y archivos originales
+
+![Maqueta de Google Drive con carpetas contables y documentos relacionados por ID](docs/images/maqueta-drive.svg)
+
+### Calendar: cita, materiales, comentarios y factura
+
+![Maqueta de Google Calendar con agenda semanal y ficha privada vinculada](docs/images/maqueta-calendar.svg)
+
+### Gmail: de la factura recibida al aviso en el mismo hilo
+
+![Maqueta de Gmail con factura adjunta, etiqueta y respuesta de la oficina tras confirmación](docs/images/maqueta-gmail.svg)
+
 ## Probar el panel
 
 <picture>

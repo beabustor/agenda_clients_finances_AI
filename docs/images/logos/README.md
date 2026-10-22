@@ -13,3 +13,9 @@ Vectores de Simple Icons v11.15.0 (CC0); marcas de sus respectivos titulares. No
 | Google Sheets | https://sheets.google.com |
 
 Access se incluye como alternativa comparada, no como componente del proyecto. Excel representa exportaciones previstas; las integraciones siguen sujetas al estado indicado en el README.
+
+## IA y automatización
+
+OpenAI y Anthropic: Simple Icons v11.15.0. n8n: Simple Icons v15.20.0. Distribución CC0; las marcas conservan los derechos de sus titulares. El símbolo de Anthropic identifica al proveedor de Claude, no pretende ser el símbolo específico de Claude.
+
+Fuentes de referencia: https://openai.com/brand/ · https://www.anthropic.com/ · https://n8n.io/brand-guidelines/
