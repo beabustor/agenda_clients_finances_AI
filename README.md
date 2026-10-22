@@ -117,6 +117,10 @@ No basta introducir credenciales para activar lo pendiente. No exponer el servid
 
 Crea un repositorio nuevo **privado** desde esta plantilla. Conserva fuera de Git bases de datos, facturas, documentos, secretos y backups, también en las copias privadas. El formulario declara la copia privada; no verifica su visibilidad. El titular deberá autorizar Gmail, Drive y Calendar con permisos mínimos.
 
+## Si se apaga el ordenador
+
+**Lo recibido queda en espera en disco.** Al reiniciar la aplicación con la misma base, se recuperan entradas y avisos pendientes. El admin muestra sus contadores. Gmail conserva los correos; recuperar entradas de WhatsApp/ChatGPT durante apagados requiere un receptor externo o reintentos, no está garantizado. [Cómo funciona la recuperación](docs/STANDBY.md).
+
 ## Implantación mínima elegida
 
 **Ordenador de la usuaria encendido + Google + API de IA. Sin servidor de pago.** ChatGPT Plus no es necesario para las llamadas a la API; WhatsApp y entrada desde ChatGPT quedan opcionales.

@@ -2,7 +2,7 @@
 import json
 import os
 from pathlib import Path
-from app.server import connect
+from app.server import connect, database_path
 from app.notifications import summary
 
 def export_reports(db, root):
@@ -20,7 +20,7 @@ def export_reports(db, root):
     return len(days)
 
 if __name__ == '__main__':
-    database = Path(os.environ.get('AGENDA_DB','data/agenda.sqlite3'))
+    database = database_path()
     with connect() as db:
         count = export_reports(db, database.parent / 'admin' / 'actividad-diaria')
     print(f'{count} días exportados a la carpeta privada admin/actividad-diaria junto a la base de datos.')

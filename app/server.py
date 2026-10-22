@@ -1,4 +1,5 @@
 """Servidor local de desarrollo; sin dependencias externas."""
+from app.standby import status as standby_status
 from app.readiness import report as readiness_report, save as save_deployment
 from app.agenda import enrich, check_links, calendar_proposal
 from app.notifications import complete, outbox, summary
@@ -17,10 +18,15 @@ from pathlib import Path
 STATIC = Path(__file__).parent / 'static'
 KINDS = {'clientes', 'servicios', 'citas', 'ingresos', 'gastos'}
 
+def database_path():
+    return Path(os.environ.get('AGENDA_DB', str(Path(__file__).resolve().parents[1] / 'data' / 'agenda.sqlite3')))
+
 def connect():
-    path = Path(os.environ.get('AGENDA_DB', 'data/agenda.sqlite3'))
+    path = database_path()
     path.parent.mkdir(parents=True, exist_ok=True)
-    db = sqlite3.connect(path)
+    db = sqlite3.connect(path, timeout=30)
+    db.execute('PRAGMA synchronous=FULL')
+    db.execute('PRAGMA busy_timeout=30000')
     db.execute('CREATE TABLE IF NOT EXISTS registros (id INTEGER PRIMARY KEY, tipo TEXT NOT NULL, datos TEXT NOT NULL)')
     return db
 
@@ -82,6 +88,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = self.path.split('?')[0]
+        if path == '/api/standby':
+            with connect() as db:
+                return self.respond(200, standby_status(db))
         if path == '/api/implantacion':
             with connect() as db:
                 return self.respond(200, readiness_report(db))
