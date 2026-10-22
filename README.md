@@ -117,6 +117,12 @@ No basta introducir credenciales para activar lo pendiente. No exponer el servid
 
 Crea un repositorio nuevo **privado** desde esta plantilla. Conserva fuera de Git bases de datos, facturas, documentos, secretos y backups, también en las copias privadas. El formulario declara la copia privada; no verifica su visibilidad. El titular deberá autorizar Gmail, Drive y Calendar con permisos mínimos.
 
+## Implantación mínima elegida
+
+**Ordenador de la usuaria encendido + Google + API de IA. Sin servidor de pago.** ChatGPT Plus no es necesario para las llamadas a la API; WhatsApp y entrada desde ChatGPT quedan opcionales.
+
+El admin ya puede guardar el plan y comprobar requisitos. Presupuesto objetivo inicial editable: **5 €/mes**, aún sin límite efectivo ni llamadas de IA implementadas. [Preparación y pruebas necesarias](docs/IMPLANTACION_MINIMA.md).
+
 ## Costes y revisión fiscal
 
 <picture>

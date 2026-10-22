@@ -1,4 +1,5 @@
 """Servidor local de desarrollo; sin dependencias externas."""
+from app.readiness import report as readiness_report, save as save_deployment
 from app.agenda import enrich, check_links, calendar_proposal
 from app.notifications import complete, outbox, summary
 from app.intake import propose
@@ -81,6 +82,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = self.path.split('?')[0]
+        if path == '/api/implantacion':
+            with connect() as db:
+                return self.respond(200, readiness_report(db))
         if path.startswith('/api/calendar/propuesta/'):
             try:
                 ident = int(path.rsplit('/', 1)[1])
@@ -115,7 +119,7 @@ class Handler(BaseHTTPRequestHandler):
         # El navegador debe enviar JSON desde el mismo origen. No se permite CORS.
         if self.headers.get('Content-Type') != 'application/json' or self.headers.get('Sec-Fetch-Site') == 'cross-site':
             return self.respond(403, {'error': 'Solicitud no permitida'})
-        if self.path in {'/api/configuracion', '/api/eventos/simular', '/api/entrada/proponer', '/api/acciones/confirmar'}:
+        if self.path in {'/api/configuracion', '/api/eventos/simular', '/api/entrada/proponer', '/api/acciones/confirmar', '/api/implantacion'}:
             try:
                 size = int(self.headers.get('Content-Length', '0'))
                 if not 0 < size <= 16384:
@@ -123,7 +127,7 @@ class Handler(BaseHTTPRequestHandler):
                 data = json.loads(self.rfile.read(size))
                 with connect() as db:
                     db.execute('BEGIN IMMEDIATE')
-                    result = complete(db, data, validate) if self.path == '/api/acciones/confirmar' else propose(data) if self.path == '/api/entrada/proponer' else (save_configuration(db, data) if self.path == '/api/configuracion' else enqueue(db, data))
+                    result = save_deployment(db, data) if self.path == '/api/implantacion' else complete(db, data, validate) if self.path == '/api/acciones/confirmar' else propose(data) if self.path == '/api/entrada/proponer' else (save_configuration(db, data) if self.path == '/api/configuracion' else enqueue(db, data))
                 return self.respond(200, result)
             except (ValueError, TypeError):
                 return self.respond(400, {'error': 'Revisa los campos, la copia privada y los canales seleccionados. No envíes secretos.'})

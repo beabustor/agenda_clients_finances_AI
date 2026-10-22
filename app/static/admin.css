@@ -2,3 +2,4 @@
 pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.8 system-ui;background:#f1f6f0;padding:18px;border-radius:10px}
 
 .visual-guide{margin:22px 0;max-width:100%}.visual-guide img{display:block;max-width:100%;width:100%;height:auto;border-radius:14px}@media(max-width:600px){.visual-guide{overflow-x:auto}.visual-guide img{min-width:680px}}
+.requirement{border-top:1px solid #e1e8e2;padding:14px 0}.requirement strong{font-size:13px}.requirement p{font-size:12px;margin:6px 0}
