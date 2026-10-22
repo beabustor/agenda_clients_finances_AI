@@ -2,6 +2,12 @@
 
 **Clientes, citas y contabilidad conectados**, con entradas previstas desde Gmail, ChatGPT y WhatsApp. Plantilla pública para crear una oficina privada por autónomo.
 
+## Servicios y formatos
+
+![Logotipos de Gmail, Drive, WhatsApp, Calendar, Sheets, Excel y Access](docs/images/logotipos-servicios.svg)
+
+**Google y WhatsApp:** conexiones previstas · **Excel:** exportación prevista · **Access:** alternativa comparada, no utilizada. [Fuentes de los logotipos](docs/images/logos/README.md).
+
 ## Probar el panel
 
 <picture>
