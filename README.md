@@ -4,6 +4,12 @@
 
 ## Probar el panel
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/admin-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/admin-light.svg">
+  <img alt="Configurar una oficina en tres pasos" src="docs/images/admin-light.svg" width="1120" loading="lazy">
+</picture>
+
 Python 3.12+, sin instalar dependencias:
 
 ```bash
@@ -17,6 +23,14 @@ Abre el puerto local **8000**: `/` muestra el admin y `/gestion` los registros. 
 ## Así se verá tu oficina
 
 Ejemplos visuales con datos ficticios. **Diseño previsto:** las conexiones, OCR y sincronización todavía no están implementados.
+
+### De la entrada a la acción
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/entradas-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/entradas-light.svg">
+  <img alt="Cuatro tipos de entrada. Un recorrido controlado." src="docs/images/entradas-light.svg" width="1120" loading="lazy">
+</picture>
 
 ### Tu Drive, organizado y relacionado
 
@@ -58,7 +72,29 @@ Foto → OCR → revisión → documento en Drive + registro enlazado.
 
 **Destino previsto: el Google Calendar del usuario.** Cada cita enlazará su ficha privada y los documentos de Drive; los IDs la relacionarán con la contabilidad. [Contrato de agenda y sincronización](docs/AGENDA.md).
 
+### Avisos y actividad diaria
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/avisos-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/avisos-light.svg">
+  <img alt="Guardar una vez. Avisar sin duplicar." src="docs/images/avisos-light.svg" width="1120" loading="lazy">
+</picture>
+
+### Privacidad por diseño
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/privacidad-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/privacidad-light.svg">
+  <img alt="Cada dato en su lugar. Cada acceso, limitado." src="docs/images/privacidad-light.svg" width="1120" loading="lazy">
+</picture>
+
 ## Qué funciona y qué falta
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/estado-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/estado-light.svg">
+  <img alt="Del prototipo local a la oficina conectada." src="docs/images/estado-light.svg" width="1120" loading="lazy">
+</picture>
 
 | Parte | Disponible ahora | Pendiente |
 | --- | --- | --- |
@@ -73,13 +109,31 @@ No basta introducir credenciales para activar lo pendiente. No exponer el servid
 
 ## Copia privada y permisos
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/privado-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/privado-light.svg">
+  <img alt="Una plantilla pública. Una oficina privada." src="docs/images/privado-light.svg" width="1120" loading="lazy">
+</picture>
+
 Crea un repositorio nuevo **privado** desde esta plantilla. Conserva fuera de Git bases de datos, facturas, documentos, secretos y backups, también en las copias privadas. El formulario declara la copia privada; no verifica su visibilidad. El titular deberá autorizar Gmail, Drive y Calendar con permisos mínimos.
 
 ## Costes y revisión fiscal
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/costes-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/costes-light.svg">
+  <img alt="Elige las conexiones que necesitas." src="docs/images/costes-light.svg" width="1120" loading="lazy">
+</picture>
+
 La demo manual funciona localmente sin suscripciones. ChatGPT Plus **no incluye la API de OpenAI**; WhatsApp, API y alojamiento pueden tener costes. No se garantiza un total de 20 €. Las deducciones, facturas y obligaciones fiscales requieren implementación y revisión profesional; el prototipo no presenta impuestos ni certifica cumplimiento normativo.
 
 ## Guías y código
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/codigo-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/codigo-light.svg">
+  <img alt="Dónde vive cada parte del administrador." src="docs/images/codigo-light.svg" width="1120" loading="lazy">
+</picture>
 
 - [Inicio en repositorio privado](docs/INICIO_PRIVADO.md) · [Código relevante del admin](docs/ADMIN_CODIGO.md)
 - [Agenda, Calendar y contabilidad](docs/AGENDA.md) · [Plan de integraciones](docs/PLAN.md)
@@ -92,4 +146,4 @@ Pruebas:
 python3 -m unittest discover -s tests -v
 ```
 
-Ilustraciones SVG propias con versiones claras/oscuras. Iconos del panel: Bootstrap Icons, MIT.
+Ilustraciones SVG con versiones claras/oscuras y pictogramas de Bootstrap Icons (MIT). [Licencia de los iconos](app/static/icons/LICENSE). Sin fuentes externas, fotos ni rastreo.

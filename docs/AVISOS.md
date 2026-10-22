@@ -1,5 +1,11 @@
 # Avisos y actividad diaria
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/avisos-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="images/avisos-light.svg">
+  <img alt="Guardar una vez. Avisar sin duplicar." src="images/avisos-light.svg" width="1120" loading="lazy">
+</picture>
+
 ## Funcionamiento local implementado
 
 1. El administrador configura correo, canal de copia del usuario y preferencia de avisos.

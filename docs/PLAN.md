@@ -1,5 +1,11 @@
 # Producto y plan de desarrollo
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/entradas-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="images/entradas-light.svg">
+  <img alt="Cuatro tipos de entrada. Un recorrido controlado." src="images/entradas-light.svg" width="1120" loading="lazy">
+</picture>
+
 ## Flujo previsto
 
 1. El administrador prepara una instancia privada por autónomo y configura su actividad, régimen fiscal, moneda EUR, zona Europe/Madrid, series y ejercicios.

@@ -1,5 +1,11 @@
 # Admin: puntos clave del código
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/codigo-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="images/codigo-light.svg">
+  <img alt="Dónde vive cada parte del administrador." src="images/codigo-light.svg" width="1120" loading="lazy">
+</picture>
+
 | Parte | Archivo | Responsabilidad |
 | --- | --- | --- |
 | Demo visual | `app/static/admin.html` | Ficha, tarjetas de conexiones y pruebas |

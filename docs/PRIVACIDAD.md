@@ -1,5 +1,11 @@
 # Privacidad y operación
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/privacidad-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="images/privacidad-light.svg">
+  <img alt="Cada dato en su lugar. Cada acceso, limitado." src="images/privacidad-light.svg" width="1120" loading="lazy">
+</picture>
+
 Esta versión es un prototipo local sin autenticación: utilizar datos ficticios. SQLite no está cifrado por la aplicación. El acceso al equipo permite leer sus archivos. No habilitar acceso externo al servidor de desarrollo.
 
 Antes de producción: identificar al responsable del tratamiento, finalidades y bases jurídicas; facilitar información de privacidad, plazos de conservación y ejercicio de derechos; revisar contratos con encargados y transferencias internacionales conforme a RGPD/LOPDGDD. Limitar accesos del administrador y de la asesoría. Pedir consentimiento o disponer de otra base válida cuando proceda; la autorización OAuth no resuelve por sí sola todas las obligaciones.

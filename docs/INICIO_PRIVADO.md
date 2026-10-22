@@ -1,5 +1,11 @@
 # Configuración inicial en una copia privada
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/privado-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="images/privado-light.svg">
+  <img alt="Una plantilla pública. Una oficina privada." src="images/privado-light.svg" width="1120" loading="lazy">
+</picture>
+
 ## Administrador
 
 1. En el repositorio público, activar Settings → Template repository si se desea usar «Use this template». Crear un repositorio nuevo con visibilidad **Private**. No crear un fork público para datos privados. Como alternativa, copiar el código a un repositorio privado nuevo.

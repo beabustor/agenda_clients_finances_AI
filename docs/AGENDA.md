@@ -1,5 +1,11 @@
 # Agenda, Calendar y contabilidad
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/calendar-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="images/calendar-light.svg">
+  <img alt="Calendar, ficha privada y contabilidad relacionados" src="images/calendar-light.svg" width="1120" loading="lazy">
+</picture>
+
 ## Implementado localmente
 
 En `/gestion`, una cita admite cliente y servicio por ID, duración, materiales usados y comentarios (notas). Ingresos y gastos admiten `cita_id`; un ingreso puede incluir una referencia de factura. Se comprueba que las referencias existan y que el cliente indicado en un movimiento no contradiga al cliente de su cita. Una cita no genera ingresos por sí sola.

@@ -102,6 +102,8 @@ class Handler(BaseHTTPRequestHandler):
         if path in {'/exportar/ingresos', '/exportar/gastos'}:
             return self.respond(200, export_csv(records(path.rsplit('/', 1)[1])), 'text/csv; charset=utf-8')
         files = {'/': ('admin.html', 'text/html'), '/admin': ('admin.html', 'text/html'), '/admin.html': ('admin.html', 'text/html'), '/gestion': ('index.html', 'text/html'), '/admin.js': ('admin.js', 'text/javascript'), '/admin.css': ('admin.css', 'text/css'), '/app.js': ('app.js', 'text/javascript'), '/setup.js': ('setup.js', 'text/javascript'), '/style.css': ('style.css', 'text/css')}
+        for visual in ('admin', 'entradas', 'avisos', 'privacidad', 'calendar', 'drive'):
+            files['/visuales/' + visual + '.svg'] = ('../../docs/images/' + visual + '-light.svg', 'image/svg+xml')
         for icon in ('envelope', 'folder', 'chat-dots', 'whatsapp', 'person-circle', 'shield-lock', 'lightning-charge', 'check-circle'):
             files['/icons/' + icon + '.svg'] = ('icons/' + icon + '.svg', 'image/svg+xml')
         if path in files:
