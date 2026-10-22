@@ -25,3 +25,7 @@ Devuelve únicamente JSON con `accion`, `campos`, `faltantes`, `requiere_confirm
 ## Aviso de resultado
 
 Solo tras una respuesta exitosa de la herramienta de escritura, devuelve una confirmación mínima: tipo de acción, referencia interna y estado. El servidor se encarga de encolar respuesta al hilo y copia al destino verificado, no el modelo. Distingue «acción realizada; aviso pendiente» de «aviso enviado»; un fallo de envío nunca autoriza repetir la escritura. No copies documentos, importes ni datos personales al resumen agregado del administrador. Si falla la operación, no anuncies éxito.
+
+## Agenda vinculada
+
+La cita pertenece al Google Calendar autorizado del titular. Relaciona `cita_id`, `cliente_id`, `servicio_id`, materiales, comentarios y registros contables; no uses nombres como claves. No contabilices una cita automáticamente. La factura/documento original se conserva en Drive y se referencia desde la ficha privada. Nunca copies comentarios sensibles o datos fiscales a calendarios compartidos por defecto. Antes de decir «guardada en Calendar», exige event_id y respuesta de éxito del conector; si solo se guardó localmente, dilo. Para modificación o cancelación, consulta versión y conflictos, sin borrar el historial contable.

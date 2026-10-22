@@ -1,6 +1,18 @@
 # Mi oficina · Autónomos de España
 
-**Demo admin:** inicia `python3 -m app.server` y abre el puerto local 8000. Ficha → conexiones → prueba. El panel de registros está en `/gestion`.
+**Clientes, citas y contabilidad conectados**, con entradas previstas desde Gmail, ChatGPT y WhatsApp. Plantilla pública para crear una oficina privada por autónomo.
+
+## Probar el panel
+
+Python 3.12+, sin instalar dependencias:
+
+```bash
+python3 -m app.server
+```
+
+Abre el puerto local **8000**: `/` muestra el admin y `/gestion` los registros. Datos locales en SQLite, fuera de Git. `PORT` y `AGENDA_DB` permiten cambiar puerto y ruta; `.env` no se carga automáticamente.
+
+**Admin:** ficha → conexiones → prueba → avisos. [Crear copia privada](docs/INICIO_PRIVADO.md).
 
 ## Así se verá tu oficina
 
@@ -36,56 +48,48 @@ Adjuntar → extraer → confirmar → guardar borrador → avisar.
 
 Foto → OCR → revisión → documento en Drive + registro enlazado.
 
-[Fragmentos del admin](docs/ADMIN_CODIGO.md) · [Prompts de acciones](prompts/sistema.md)
+### La cita conecta agenda y contabilidad
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/calendar-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/calendar-light.svg">
+  <img alt="Google Calendar enlaza una ficha privada con cliente, servicio, materiales, comentarios, factura y contabilidad." src="docs/images/calendar-light.svg" width="1120">
+</picture>
 
-Base pública, en español, para desarrollar una oficina de clientes, servicios, citas y control contable. Primera versión local y manual, sin dependencias externas ni llamadas a proveedores.
+**Destino previsto: el Google Calendar del usuario.** Cada cita enlazará su ficha privada y los documentos de Drive; los IDs la relacionarán con la contabilidad. [Contrato de agenda y sincronización](docs/AGENDA.md).
 
-## Iniciar
+## Qué funciona y qué falta
 
-Requiere Python 3.12 o posterior. Desde la raíz del repositorio:
+| Parte | Disponible ahora | Pendiente |
+| --- | --- | --- |
+| Admin | Perfil, preferencias y referencias de cuentas | Autenticación y autorización OAuth |
+| Agenda | Citas con cliente/servicio por ID, duración, materiales y comentarios | Guardado real y sincronización con Google Calendar |
+| Contabilidad | Ingresos/gastos vinculables a citas, referencia de factura y CSV | Emisión de facturas, libros XLSX/Sheets y cálculos fiscales |
+| Calendar | Propuesta JSON privada con horario y ficha relacionada | Conector, invitaciones, recordatorios y resolución de conflictos |
+| Entradas | Simulación, deduplicación y propuestas por reglas | Gmail, WhatsApp, herramientas ChatGPT, OCR, audio y LLM |
+| Avisos | Cola tras acción guardada y resumen diario agregado | Envíos reales, carpeta Drive y ejecución programada |
 
-```bash
-python3 -m app.server
-```
+No basta introducir credenciales para activar lo pendiente. No exponer el servidor de desarrollo a Internet ni usar datos reales en entornos compartidos. Los prompts definen el comportamiento, no sustituyen las integraciones.
 
-Abre en tu navegador el puerto local 8000. El servidor escucha exclusivamente en el equipo local. `PORT` permite elegir otro puerto; `AGENDA_DB` permite elegir otra ruta para SQLite. No se carga `.env` automáticamente.
+## Copia privada y permisos
+
+Crea un repositorio nuevo **privado** desde esta plantilla. Conserva fuera de Git bases de datos, facturas, documentos, secretos y backups, también en las copias privadas. El formulario declara la copia privada; no verifica su visibilidad. El titular deberá autorizar Gmail, Drive y Calendar con permisos mínimos.
+
+## Costes y revisión fiscal
+
+La demo manual funciona localmente sin suscripciones. ChatGPT Plus **no incluye la API de OpenAI**; WhatsApp, API y alojamiento pueden tener costes. No se garantiza un total de 20 €. Las deducciones, facturas y obligaciones fiscales requieren implementación y revisión profesional; el prototipo no presenta impuestos ni certifica cumplimiento normativo.
+
+## Guías y código
+
+- [Inicio en repositorio privado](docs/INICIO_PRIVADO.md) · [Código relevante del admin](docs/ADMIN_CODIGO.md)
+- [Agenda, Calendar y contabilidad](docs/AGENDA.md) · [Plan de integraciones](docs/PLAN.md)
+- [Prompts de acciones](prompts/sistema.md) · [Privacidad](docs/PRIVACIDAD.md)
+- [Avisos y resúmenes diarios](docs/AVISOS.md): `python3 -m app.daily_report`
+
+Pruebas:
 
 ```bash
 python3 -m unittest discover -s tests -v
 ```
 
-## Qué funciona
-
-- Alta y listado de clientes, servicios, citas, ingresos y gastos.
-- Persistencia SQLite en `data/agenda.sqlite3`, excluida de Git.
-- Resumen acumulado de bases de ingresos/gastos, sin filtrar por ejercicio.
-- Base, tipo de IVA y porcentaje de afectación editables; revisión fiscal pendiente.
-- CSV UTF-8 con separador punto y coma para abrir o importar en Excel.
-- Interfaz adaptable a móvil, sin recursos ni rastreadores externos.
-
-## Límites actuales
-
-Es un prototipo de control interno: no emite facturas legales, no presenta impuestos, no calcula liquidaciones ni determina deducciones. CSV no es un libro Excel con fórmulas. Las citas no tienen recordatorios ni sincronización. Clientes y servicios aún no se vinculan a las citas o facturas. No incluye edición, eliminación, adjuntos, autenticación, múltiples usuarios o conectores reales. No publicar este servidor en Internet ni introducir datos reales en entornos compartidos.
-
-## Plantilla pública y clientes privados
-
-El administrador puede marcar este repositorio como plantilla en GitHub y generar un repositorio **privado** para cada autónomo. Las copias no reciben actualizaciones automáticamente; documentar y revisar las actualizaciones antes de aplicarlas. No hace falta un repositorio por cliente final del autónomo: esos clientes son registros de su aplicación.
-
-Incluso en repositorios privados, mantener fuera de Git las bases de datos, documentos, copias de seguridad y credenciales. `.gitignore` ayuda a prevenir inclusiones accidentales; no elimina datos ya publicados. Mantener el almacenamiento de cada autónomo separado, con permisos de acceso y copias cifradas. El repositorio público solo debe contener ejemplos ficticios.
-
-## Costes y conexiones
-
-La versión manual funciona localmente sin suscripciones. No es posible garantizar un coste total de 20 €: ChatGPT Plus tiene precio e impuestos según contratación y **no incluye créditos de la API de OpenAI**. Una integración mediante API se factura por separado. Conectar desde ChatGPT mediante herramientas requiere comprobar las capacidades del plan, un servidor accesible, autenticación y las condiciones vigentes. WhatsApp Business Platform, alojamiento y almacenamiento también pueden generar costes.
-
-No necesitas entregar credenciales para probar esta versión. La configuración real de proveedores se hará con el administrador y autorización del titular; nunca pegues claves en el chat o en Git.
-
-Consulta [el plan y la configuración](docs/PLAN.md) y [privacidad y seguridad](docs/PRIVACIDAD.md).
-
-## Configuración inicial y base de automatizaciones
-
-El panel incluye un formulario para declarar la copia privada, el perfil del negocio y los canales deseados, además de una bandeja de eventos simulados con prevención de duplicados. Las preferencias se conservan en SQLite. No se solicitan claves ni se activan conexiones reales. Sigue [la guía de inicio privado](docs/INICIO_PRIVADO.md) antes de introducir datos.
-
-### Avisos de acciones y resumen del admin
-
-La demo permite confirmar una acción de prueba y ver su cola de avisos. Respuesta al hilo + copia opcional al usuario; envíos externos pendientes de conectores. Exporta resúmenes mínimos por día con `python3 -m app.daily_report`. [Detalle y límites](docs/AVISOS.md).
+Ilustraciones SVG propias con versiones claras/oscuras. Iconos del panel: Bootstrap Icons, MIT.

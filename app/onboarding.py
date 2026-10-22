@@ -4,7 +4,7 @@ import re
 from datetime import datetime, timezone
 
 CHANNELS = ('gmail', 'chatgpt', 'whatsapp')
-FIELDS = ('nombre', 'actividad', 'email', 'repositorio', 'gmail', 'drive_carpeta', 'whatsapp_numero', 'admin_email', 'aviso_canal')
+FIELDS = ('nombre', 'actividad', 'email', 'repositorio', 'gmail', 'drive_carpeta', 'whatsapp_numero', 'admin_email', 'aviso_canal', 'calendar_id')
 
 def initialize(db):
     db.execute('CREATE TABLE IF NOT EXISTS configuracion (id INTEGER PRIMARY KEY CHECK(id=1), datos TEXT NOT NULL)')

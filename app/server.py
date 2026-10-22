@@ -1,4 +1,5 @@
 """Servidor local de desarrollo; sin dependencias externas."""
+from app.agenda import enrich, check_links, calendar_proposal
 from app.notifications import complete, outbox, summary
 from app.intake import propose
 from app.onboarding import configuration, save_configuration, enqueue, events
@@ -44,7 +45,12 @@ def validate(kind, data):
         result['factura'] = str(data.get('factura', '')).strip()[:100]
     if kind == 'citas':
         result['fecha'] = datetime.fromisoformat(str(data.get('fecha', ''))).isoformat(timespec='minutes')
-    return result
+    if kind == 'citas':
+        duration = data.get('duracion', 60)
+        if isinstance(duration, bool) or not str(duration).isdigit() or not 5 <= int(duration) <= 1440:
+            raise ValueError('Duración no válida')
+        result['duracion'] = int(duration)
+    return enrich(data, result)
 
 def records(kind):
     with connect() as db:
@@ -75,6 +81,13 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = self.path.split('?')[0]
+        if path.startswith('/api/calendar/propuesta/'):
+            try:
+                ident = int(path.rsplit('/', 1)[1])
+                with connect() as db:
+                    return self.respond(200, calendar_proposal(db, ident))
+            except ValueError:
+                return self.respond(404, {'error': 'Cita no encontrada'})
         if path in {'/api/avisos', '/api/admin/resumen', '/exportar/admin-resumen'}:
             with connect() as db:
                 return self.respond(200, outbox(db) if path == '/api/avisos' else summary(db))
@@ -121,6 +134,7 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError('Tamaño de solicitud no válido')
             data = validate(kind, json.loads(self.rfile.read(size)))
             with connect() as db:
+                check_links(db, kind, data)
                 cursor = db.execute('INSERT INTO registros (tipo, datos) VALUES (?, ?)', (kind, json.dumps(data, ensure_ascii=False)))
                 ident = cursor.lastrowid
             self.respond(201, dict(id=ident, **data))

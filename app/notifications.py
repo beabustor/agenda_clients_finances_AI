@@ -2,6 +2,7 @@
 import json
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
+from app.agenda import check_links
 from app.onboarding import initialize, configuration
 
 KINDS = {'clientes','servicios','citas','ingresos','gastos'}
@@ -24,6 +25,7 @@ def complete(db, data, validator):
     if not event or event[2] != 'pendiente_revision':
         raise ValueError('Entrada no disponible')
     fields = validator(data['tipo'], data['datos'])
+    check_links(db, data['tipo'], fields)
     record = db.execute('INSERT INTO registros(tipo,datos) VALUES (?,?)',(data['tipo'],json.dumps(fields,ensure_ascii=False))).lastrowid
     day = datetime.now(timezone.utc).astimezone(ZoneInfo('Europe/Madrid')).date().isoformat()
     action = db.execute('INSERT INTO acciones(evento,tipo,registro,dia) VALUES (?,?,?,?)',(data['evento'],data['tipo'],record,day)).lastrowid
