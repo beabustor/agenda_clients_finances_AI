@@ -2,7 +2,13 @@
 
 **Demo admin:** inicia `python3 -m app.server` y abre el puerto local 8000. Ficha → conexiones → prueba. El panel de registros está en `/gestion`.
 
-![Correo](app/static/icons/envelope.svg) **Gmail** · ![Archivos](app/static/icons/folder.svg) **Drive** · ![Chat](app/static/icons/chat-dots.svg) **ChatGPT** · ![WhatsApp](app/static/icons/whatsapp.svg) **WhatsApp**
+<picture><source media="(prefers-color-scheme: dark)" srcset="app/static/icons/envelope-dark.svg"><source media="(prefers-color-scheme: light)" srcset="app/static/icons/envelope-light.svg"><img alt="Gmail" src="app/static/icons/envelope-light.svg" width="24" height="24"></picture> **Gmail**
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="app/static/icons/folder-dark.svg"><source media="(prefers-color-scheme: light)" srcset="app/static/icons/folder-light.svg"><img alt="Drive" src="app/static/icons/folder-light.svg" width="24" height="24"></picture> **Drive**
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="app/static/icons/chat-dots-dark.svg"><source media="(prefers-color-scheme: light)" srcset="app/static/icons/chat-dots-light.svg"><img alt="ChatGPT" src="app/static/icons/chat-dots-light.svg" width="24" height="24"></picture> **ChatGPT**
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="app/static/icons/whatsapp-dark.svg"><source media="(prefers-color-scheme: light)" srcset="app/static/icons/whatsapp-light.svg"><img alt="WhatsApp" src="app/static/icons/whatsapp-light.svg" width="24" height="24"></picture> **WhatsApp**
 
 [Fragmentos del admin](docs/ADMIN_CODIGO.md) · [Prompts de acciones](prompts/sistema.md)
 
@@ -53,3 +59,7 @@ Consulta [el plan y la configuración](docs/PLAN.md) y [privacidad y seguridad](
 ## Configuración inicial y base de automatizaciones
 
 El panel incluye un formulario para declarar la copia privada, el perfil del negocio y los canales deseados, además de una bandeja de eventos simulados con prevención de duplicados. Las preferencias se conservan en SQLite. No se solicitan claves ni se activan conexiones reales. Sigue [la guía de inicio privado](docs/INICIO_PRIVADO.md) antes de introducir datos.
+
+### Avisos de acciones y resumen del admin
+
+La demo permite confirmar una acción de prueba y ver su cola de avisos. Respuesta al hilo + copia opcional al usuario; envíos externos pendientes de conectores. Exporta resúmenes mínimos por día con `python3 -m app.daily_report`. [Detalle y límites](docs/AVISOS.md).

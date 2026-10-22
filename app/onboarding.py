@@ -4,7 +4,7 @@ import re
 from datetime import datetime, timezone
 
 CHANNELS = ('gmail', 'chatgpt', 'whatsapp')
-FIELDS = ('nombre', 'actividad', 'email', 'repositorio', 'gmail', 'drive_carpeta', 'whatsapp_numero')
+FIELDS = ('nombre', 'actividad', 'email', 'repositorio', 'gmail', 'drive_carpeta', 'whatsapp_numero', 'admin_email', 'aviso_canal')
 
 def initialize(db):
     db.execute('CREATE TABLE IF NOT EXISTS configuracion (id INTEGER PRIMARY KEY CHECK(id=1), datos TEXT NOT NULL)')
@@ -16,7 +16,7 @@ def configuration(db):
     return json.loads(row[0]) if row else None
 
 def save_configuration(db, data):
-    if not isinstance(data, dict) or set(data) - set(FIELDS) - {'canales', 'privado_confirmado'}:
+    if not isinstance(data, dict) or set(data) - set(FIELDS) - {'canales', 'privado_confirmado', 'avisos_usuario'}:
         raise ValueError('Configuración no válida; no envíes secretos')
     result = {}
     for key in FIELDS:
@@ -36,6 +36,12 @@ def save_configuration(db, data):
     if not isinstance(channels, list) or any(c not in CHANNELS for c in channels):
         raise ValueError('Canal no válido')
     result.update(canales=sorted(set(channels)), privado_confirmado=True, zona='Europe/Madrid', moneda='EUR')
+    if result['aviso_canal'] not in ('', 'email', 'whatsapp'):
+        raise ValueError('Destino no válido')
+    result['aviso_canal'] = result['aviso_canal'] or 'email'
+    if type(data.get('avisos_usuario', False)) is not bool:
+        raise ValueError('Preferencia no válida')
+    result['avisos_usuario'] = data.get('avisos_usuario', False)
     initialize(db)
     db.execute('INSERT INTO configuracion VALUES (1, ?) ON CONFLICT(id) DO UPDATE SET datos=excluded.datos', (json.dumps(result),))
     return result

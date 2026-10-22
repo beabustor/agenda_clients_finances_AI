@@ -1,4 +1,5 @@
 """Servidor local de desarrollo; sin dependencias externas."""
+from app.notifications import complete, outbox, summary
 from app.intake import propose
 from app.onboarding import configuration, save_configuration, enqueue, events
 import csv
@@ -74,6 +75,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = self.path.split('?')[0]
+        if path in {'/api/avisos', '/api/admin/resumen', '/exportar/admin-resumen'}:
+            with connect() as db:
+                return self.respond(200, outbox(db) if path == '/api/avisos' else summary(db))
         if path == '/api/configuracion':
             with connect() as db:
                 return self.respond(200, {'perfil': configuration(db), 'modo': 'local', 'conectores_activos': []})
@@ -96,14 +100,15 @@ class Handler(BaseHTTPRequestHandler):
         # El navegador debe enviar JSON desde el mismo origen. No se permite CORS.
         if self.headers.get('Content-Type') != 'application/json' or self.headers.get('Sec-Fetch-Site') == 'cross-site':
             return self.respond(403, {'error': 'Solicitud no permitida'})
-        if self.path in {'/api/configuracion', '/api/eventos/simular', '/api/entrada/proponer'}:
+        if self.path in {'/api/configuracion', '/api/eventos/simular', '/api/entrada/proponer', '/api/acciones/confirmar'}:
             try:
                 size = int(self.headers.get('Content-Length', '0'))
                 if not 0 < size <= 16384:
                     raise ValueError('Tamaño no válido')
                 data = json.loads(self.rfile.read(size))
                 with connect() as db:
-                    result = propose(data) if self.path == '/api/entrada/proponer' else (save_configuration(db, data) if self.path == '/api/configuracion' else enqueue(db, data))
+                    db.execute('BEGIN IMMEDIATE')
+                    result = complete(db, data, validate) if self.path == '/api/acciones/confirmar' else propose(data) if self.path == '/api/entrada/proponer' else (save_configuration(db, data) if self.path == '/api/configuracion' else enqueue(db, data))
                 return self.respond(200, result)
             except (ValueError, TypeError):
                 return self.respond(400, {'error': 'Revisa los campos, la copia privada y los canales seleccionados. No envíes secretos.'})
