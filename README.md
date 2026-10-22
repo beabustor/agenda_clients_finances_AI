@@ -1,5 +1,12 @@
 # Mi oficina · Autónomos de España
 
+**Demo admin:** inicia `python3 -m app.server` y abre el puerto local 8000. Ficha → conexiones → prueba. El panel de registros está en `/gestion`.
+
+![Correo](app/static/icons/envelope.svg) **Gmail** · ![Archivos](app/static/icons/folder.svg) **Drive** · ![Chat](app/static/icons/chat-dots.svg) **ChatGPT** · ![WhatsApp](app/static/icons/whatsapp.svg) **WhatsApp**
+
+[Fragmentos del admin](docs/ADMIN_CODIGO.md) · [Prompts de acciones](prompts/sistema.md)
+
+
 Base pública, en español, para desarrollar una oficina de clientes, servicios, citas y control contable. Primera versión local y manual, sin dependencias externas ni llamadas a proveedores.
 
 ## Iniciar

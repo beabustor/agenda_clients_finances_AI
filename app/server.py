@@ -1,4 +1,5 @@
 """Servidor local de desarrollo; sin dependencias externas."""
+from app.intake import propose
 from app.onboarding import configuration, save_configuration, enqueue, events
 import csv
 import io
@@ -83,7 +84,9 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond(200, {kind: records(kind) for kind in sorted(KINDS)})
         if path in {'/exportar/ingresos', '/exportar/gastos'}:
             return self.respond(200, export_csv(records(path.rsplit('/', 1)[1])), 'text/csv; charset=utf-8')
-        files = {'/': ('index.html', 'text/html'), '/app.js': ('app.js', 'text/javascript'), '/setup.js': ('setup.js', 'text/javascript'), '/style.css': ('style.css', 'text/css')}
+        files = {'/': ('admin.html', 'text/html'), '/admin': ('admin.html', 'text/html'), '/admin.html': ('admin.html', 'text/html'), '/gestion': ('index.html', 'text/html'), '/admin.js': ('admin.js', 'text/javascript'), '/admin.css': ('admin.css', 'text/css'), '/app.js': ('app.js', 'text/javascript'), '/setup.js': ('setup.js', 'text/javascript'), '/style.css': ('style.css', 'text/css')}
+        for icon in ('envelope', 'folder', 'chat-dots', 'whatsapp', 'person-circle', 'shield-lock', 'lightning-charge', 'check-circle'):
+            files['/icons/' + icon + '.svg'] = ('icons/' + icon + '.svg', 'image/svg+xml')
         if path in files:
             name, mime = files[path]
             return self.respond(200, (STATIC / name).read_bytes(), mime + '; charset=utf-8')
@@ -93,14 +96,14 @@ class Handler(BaseHTTPRequestHandler):
         # El navegador debe enviar JSON desde el mismo origen. No se permite CORS.
         if self.headers.get('Content-Type') != 'application/json' or self.headers.get('Sec-Fetch-Site') == 'cross-site':
             return self.respond(403, {'error': 'Solicitud no permitida'})
-        if self.path in {'/api/configuracion', '/api/eventos/simular'}:
+        if self.path in {'/api/configuracion', '/api/eventos/simular', '/api/entrada/proponer'}:
             try:
                 size = int(self.headers.get('Content-Length', '0'))
                 if not 0 < size <= 16384:
                     raise ValueError('Tamaño no válido')
                 data = json.loads(self.rfile.read(size))
                 with connect() as db:
-                    result = save_configuration(db, data) if self.path == '/api/configuracion' else enqueue(db, data)
+                    result = propose(data) if self.path == '/api/entrada/proponer' else (save_configuration(db, data) if self.path == '/api/configuracion' else enqueue(db, data))
                 return self.respond(200, result)
             except (ValueError, TypeError):
                 return self.respond(400, {'error': 'Revisa los campos, la copia privada y los canales seleccionados. No envíes secretos.'})
